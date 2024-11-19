@@ -2,8 +2,10 @@
 
 # Install
 
-sudo apt-get install -y unzip
-curl https://glaredb.com/install.sh | sh
+sudo apt-get update
+sudo apt-get install -y python3-pip
+
+pip install rayexec
 
 wget https://clickhouse-public-datasets.s3.eu-central-1.amazonaws.com/hits_compatible/athena/hits.parquet
 
@@ -12,9 +14,7 @@ do
     sync
     echo 3 | sudo tee /proc/sys/vm/drop_caches
 
-    for i in $(seq 1 3); do
-        ./glaredb --timing --query "${query}"
-    done;
-done 2>&1 | tee log.txt
+    python3 ./run_query <<< "${query}"
+done
 
-cat log.txt | grep -oP 'Time: \d+\.\d+s|Error' | sed -r -e 's/Time: ([0-9]+\.[0-9]+)s/\1/; s/Error/null/' | awk '{ if (i % 3 == 0) { printf "[" }; printf $1; if (i % 3 != 2) { printf "," } else { print "]," }; ++i; }'
+cat log.txt | awk '{ if (i % 3 == 0) { printf "[" }; printf $1; if (i % 3 != 2) { printf "," } else { print "]," }; ++i; }'
