@@ -5,7 +5,7 @@
 sudo apt-get update
 sudo apt-get install -y python3-pip
 
-pip install rayexec
+pip install --break-system-packages rayexec
 
 wget https://clickhouse-public-datasets.s3.eu-central-1.amazonaws.com/hits_compatible/athena/hits.parquet
 
