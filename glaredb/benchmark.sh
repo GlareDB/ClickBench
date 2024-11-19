@@ -16,7 +16,7 @@ do
     sync
     echo 3 | sudo tee /proc/sys/vm/drop_caches
 
-    python3 ./run_query <<< "${query}"
+    python3 ./run_query.py <<< "${query}"
 done
 
 cat log.txt | awk '{ if (i % 3 == 0) { printf "[" }; printf $1; if (i % 3 != 2) { printf "," } else { print "]," }; ++i; }'
