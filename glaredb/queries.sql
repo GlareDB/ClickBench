@@ -16,7 +16,7 @@ SELECT "SearchEngineID", "SearchPhrase", COUNT(*) AS c FROM 'hits.parquet' WHERE
 SELECT "UserID", COUNT(*) FROM 'hits.parquet' GROUP BY "UserID" ORDER BY COUNT(*) DESC LIMIT 10;
 SELECT "UserID", "SearchPhrase", COUNT(*) FROM 'hits.parquet' GROUP BY "UserID", "SearchPhrase" ORDER BY COUNT(*) DESC LIMIT 10;
 SELECT "UserID", "SearchPhrase", COUNT(*) FROM 'hits.parquet' GROUP BY "UserID", "SearchPhrase" LIMIT 10;
-SELECT "UserID", extract(minute FROM extract(minute FROM epoch("EventTime")) AS m, "SearchPhrase", COUNT(*) FROM 'hits.parquet' GROUP BY "UserID", m, "SearchPhrase" ORDER BY COUNT(*) DESC LIMIT 10;
+SELECT "UserID", extract(minute FROM epoch("EventTime")) AS m, "SearchPhrase", COUNT(*) FROM 'hits.parquet' GROUP BY "UserID", m, "SearchPhrase" ORDER BY COUNT(*) DESC LIMIT 10;
 SELECT "UserID" FROM 'hits.parquet' WHERE "UserID" = 435090932899640449;
 SELECT COUNT(*) FROM 'hits.parquet' WHERE "URL" LIKE '%google%';
 SELECT "SearchPhrase", MIN("URL"), COUNT(*) AS c FROM 'hits.parquet' WHERE "URL" LIKE '%google%' AND "SearchPhrase" <> '' GROUP BY "SearchPhrase" ORDER BY c DESC LIMIT 10;
